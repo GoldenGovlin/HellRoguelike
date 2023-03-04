@@ -42,7 +42,7 @@ public class LevelController : MonoBehaviour
     private void GenerateRoom()
     {
         // Determinar anchura y altura
-        if(!GenerateRandom)
+        if(GenerateRandom)
         {
             Size.x = Random.Range(10, 41);
             Size.y = Random.Range(10, 41);
@@ -118,5 +118,13 @@ public class LevelController : MonoBehaviour
         Point.y = Random.Range(0, Rectangle.y);
 
         return Point;
+    }
+
+    public Vector2Int GetCenter()
+    {
+        Vector2Int Center = new Vector2Int();
+        Center.x = Mathf.FloorToInt(Size.x / 2);
+        Center.y = Mathf.FloorToInt(Size.y / 2);
+        return Center;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
@@ -22,7 +23,8 @@ public class TileController : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_01");
                 break;
             case TileType.TopWall:
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_01");
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_02");
+                gameObject.AddComponent<BoxCollider2D>();
                 break;
             default:
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_01");

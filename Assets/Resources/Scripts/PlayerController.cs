@@ -23,11 +23,26 @@ public class PlayerController : MonoBehaviour
 
     // Sprites used when no animation
     public Sprite[] TemporalSprites;
-    
+
+    // References
+    [SerializeField]
+    [HideInInspector]
+    GameObject LevelManager;
+
+    private void Awake()
+    {
+        LevelManager = GameObject.FindWithTag("LevelManager");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Set Player initial position on center of map
+        Vector2Int MapCenter = LevelManager.GetComponent<LevelController>().GetCenter();
+
+        Vector3 StartPosition = LevelManager.GetComponent<Grid>().GetCellCenterWorld(new Vector3Int(MapCenter.x, MapCenter.y, 0));
+
+        gameObject.transform.position = StartPosition;
     }
 
     // Update is called once per frame
@@ -37,17 +52,6 @@ public class PlayerController : MonoBehaviour
 
         UpdateAnimation();
 
-        UpdatePosition();
-
-    }
-
-    private void UpdatePosition()
-    {
-        gameObject.transform.position = new Vector3(
-            gameObject.transform.position.x + (PlayerVector.x * MoveSpeed * Time.deltaTime),
-            gameObject.transform.position.y + (PlayerVector.y * MoveSpeed * Time.deltaTime),
-            0.0f
-            );
     }
 
     private void DetermineDirection()
@@ -103,5 +107,10 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = TemporalSprites[((int)playerDirection)];
         }
+    }
+
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().velocity = PlayerVector * MoveSpeed;
     }
 }
