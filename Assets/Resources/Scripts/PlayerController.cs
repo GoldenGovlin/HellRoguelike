@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
+using System.Drawing;
+using UnityEngine.U2D;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,6 +45,10 @@ public class PlayerController : MonoBehaviour
         Vector3 StartPosition = LevelManager.GetComponent<Grid>().GetCellCenterWorld(new Vector3Int(MapCenter.x, MapCenter.y, 0));
 
         gameObject.transform.position = StartPosition;
+
+        // Set FogGrid center at player position
+        Grid FogGrid = GameObject.Find("FogGrid").GetComponent<Grid>();
+        FogGrid.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, 0.0f));
     }
 
     // Update is called once per frame
@@ -51,6 +57,8 @@ public class PlayerController : MonoBehaviour
         DetermineDirection();
 
         UpdateAnimation();
+
+
 
     }
 

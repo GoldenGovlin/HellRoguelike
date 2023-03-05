@@ -9,7 +9,8 @@ public class TileController : MonoBehaviour
     public enum TileType
     {
         RedFloor,
-        TopWall
+        TopWall,
+        FogTile
     }
 
     public TileType tileType;
@@ -20,14 +21,17 @@ public class TileController : MonoBehaviour
         switch(tileType)
         {
             case TileType.RedFloor:
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_01");
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Floor_01");
                 break;
             case TileType.TopWall:
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_02");
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Floor_02");
                 gameObject.AddComponent<BoxCollider2D>();
                 break;
+            case TileType.FogTile:
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/FogTile");
+                break;
             default:
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Floor_01");
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Floor_01");
                 break;
         }
 
