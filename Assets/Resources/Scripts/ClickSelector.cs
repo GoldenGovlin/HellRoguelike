@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,10 @@ public class ClickSelector : MonoBehaviour
     [SerializeField]
     [HideInInspector]
     private bool CanUseClickSelector = true;
+
+    [SerializeField]
+    [HideInInspector]
+    GameObject ObjectSelected;
     void Start()
     {
         
@@ -30,8 +35,18 @@ public class ClickSelector : MonoBehaviour
 
                 if (SelectedScript = hit.transform.gameObject.GetComponent<SelectableScript>())
                 {
-                    // Se ha detectado un objeto, hacer algo con él.
-                    SelectedScript.Select();
+                    if(ObjectSelected && !(SelectedScript.gameObject == ObjectSelected))
+                    {
+                        ObjectSelected.GetComponent<SelectableScript>().Deselect();
+                        ObjectSelected = SelectedScript.gameObject;
+                        // Se ha detectado un objeto, hacer algo con él.
+                        SelectedScript.Select();
+                    }
+                    else
+                    {
+                        ObjectSelected = SelectedScript.gameObject;
+                        SelectedScript.Select();
+                    }
                 }
             }
             else
@@ -39,24 +54,5 @@ public class ClickSelector : MonoBehaviour
                 OnDeselect.Invoke();
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        //if (CanUseClickSelector && Input.GetMouseButtonDown(0))
-        //{
-        //    print("Click");
-
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    print(ray.ToString());
-        //    RaycastHit hit;
-            
-        //    if (Physics.Raycast(ray, out hit))
-        //    {
-        //        print(hit.distance.ToString());
-        //        // Se ha detectado un objeto, hacer algo con él.
-        //        print(hit.transform.gameObject.name);
-        //    }
-        //}
     }
 }

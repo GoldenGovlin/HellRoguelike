@@ -27,6 +27,7 @@ public class SelectableScript : MonoBehaviour
     GameObject GameManager;
 
 
+
     private void Awake()
     {
         UI = GameObject.FindWithTag("UI");

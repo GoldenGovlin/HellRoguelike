@@ -31,16 +31,6 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         GenerateRoom();
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    Vector2 RandomPoint = RandomPointRect(new Vector2Int(30, 20));
-        //    print(RandomPoint.ToString());
-        //GameObject Test = new GameObject("Test" + i.ToString());
-        //Test.transform.position = GetComponent<Grid>().GetCellCenterWorld(new Vector3Int(Mathf.RoundToInt(RandomPoint.x), Mathf.RoundToInt(RandomPoint.y), 0));
-
-        //SpriteRenderer TSR = Test.AddComponent<SpriteRenderer>();
-        //TSR.sprite = Resources.Load<Sprite>("PlayerBase");
-        //}
     }
 
     private void GenerateRoom()
@@ -80,8 +70,6 @@ public class LevelController : MonoBehaviour
         }
 
         Debug.Log($"TileList size: {Tiles.Length}");
-
-        // Generar y situar los colliders externos
 
     }
 
