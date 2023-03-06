@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class LevelController : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         Random.InitState(System.DateTime.Now.Millisecond);
+
+        Size.x = Widht;
+        Size.y = Height;
     }
     void Start()
     {
@@ -46,11 +50,6 @@ public class LevelController : MonoBehaviour
         {
             Size.x = Random.Range(10, 41);
             Size.y = Random.Range(10, 41);
-        }
-        else
-        {
-            Size.x = Widht;
-            Size.y = Height;
         }
 
         Tiles = new GameObject[Size.x, Size.y];
@@ -89,20 +88,17 @@ public class LevelController : MonoBehaviour
     private void GenerateTile(int i, int j, TileController.TileType type)
     {
         GameObject Loaded = Resources.Load<GameObject>("Prefabs/Tile");
+        Vector3 DeltaOrigin = GetComponent<Grid>().CellToLocal(new Vector3Int(Size.x / 2, Size.y / 2));
 
-        if(Loaded)
-        {
-            GameObject TempTile = Instantiate(Loaded);
-            TempTile.name = $"Tile[{j.ToString()}, {i.ToString()}]";
-            TempTile.transform.position = GetComponent<Grid>().GetCellCenterWorld(new Vector3Int(j, i, 0));
-            TempTile.transform.SetParent(GameObject.Find("LevelTiles").transform);
-            TileController tileScript = TempTile.GetComponent<TileController>();
-            tileScript.tileType = type;
-            Tiles[j, i] = TempTile;
-        } else
-        {
-            print("Prefab not loaded.");
-        }
+
+        GameObject TempTile = Instantiate(Loaded);
+        TempTile.name = $"Tile[{j.ToString()}, {i.ToString()}]";
+        TempTile.transform.position = GetComponent<Grid>().CellToLocal(new Vector3Int(j, i, 0)) - DeltaOrigin;
+        TempTile.transform.SetParent(GameObject.Find("LevelTiles").transform);
+        TileController tileScript = TempTile.GetComponent<TileController>();
+        tileScript.tileType = type;
+        Tiles[j, i] = TempTile;
+
     }
 
     // Update is called once per frame

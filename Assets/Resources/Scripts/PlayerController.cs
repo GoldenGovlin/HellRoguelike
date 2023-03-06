@@ -34,21 +34,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         LevelManager = GameObject.FindWithTag("LevelManager");
+
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set Player initial position on center of map
-        Vector2Int MapCenter = LevelManager.GetComponent<LevelController>().GetCenter();
+       
 
-        Vector3 StartPosition = LevelManager.GetComponent<Grid>().GetCellCenterWorld(new Vector3Int(MapCenter.x, MapCenter.y, 0));
-
-        gameObject.transform.position = StartPosition;
-
-        // Set FogGrid center at player position
-        Grid FogGrid = GameObject.Find("FogGrid").GetComponent<Grid>();
-        FogGrid.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, 0.0f));
+        
     }
 
     // Update is called once per frame
@@ -57,8 +52,6 @@ public class PlayerController : MonoBehaviour
         DetermineDirection();
 
         UpdateAnimation();
-
-
 
     }
 
@@ -115,10 +108,5 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = TemporalSprites[((int)playerDirection)];
         }
-    }
-
-    private void FixedUpdate()
-    {
-        GetComponent<Rigidbody2D>().velocity = PlayerVector * MoveSpeed;
     }
 }

@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559621084}
+  - component: {fileID: 7900232943895354721}
   m_Layer: 0
-  m_Name: Fog
+  m_Name: LocalGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,11 +28,22 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6228727749051604481}
+  m_Children: []
   m_Father: {fileID: 7748572988176357767}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!156049354 &7900232943895354721
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559621083}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
 --- !u!1 &7748572988176357816
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,12 +54,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7748572988176357767}
   - component: {fileID: 7748572988176357765}
+  - component: {fileID: 3334409107227835892}
   - component: {fileID: 8537879478083988592}
   - component: {fileID: 566896562118826938}
   - component: {fileID: 1280874281363726414}
+  - component: {fileID: 8910989744436378194}
   - component: {fileID: 7748572988176357766}
   - component: {fileID: 6627063426081971001}
-  - component: {fileID: -2818033072758099290}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -98,6 +111,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 50a6b6eade674164483bd6a79eb54fa1, type: 3}
   - {fileID: 21300000, guid: 9f3d42e606a5f1441aa70e63b5aeaceb, type: 3}
   LevelManager: {fileID: 0}
+--- !u!114 &3334409107227835892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748572988176357816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52bbbcf7786e07f4fa15d946525bcb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  MonsterValue: 0
+  MoveRange: 1
 --- !u!114 &8537879478083988592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +174,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688219f7525835a44aab426c5935eb69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+  UI: {fileID: 0}
+  SelectionSprite: {fileID: 0}
+  SelectionAnimator: {fileID: 0}
+  GameManager: {fileID: 0}
+--- !u!114 &8910989744436378194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748572988176357816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53247737bfd62c846917e04914ead993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InRangeTile: {fileID: 0}
+  MoveRange: 1
+  LocalGrid: {fileID: 0}
+  IsGenerated: 0
 --- !u!212 &7748572988176357766
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -224,27 +278,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &-2818033072758099290
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7748572988176357816}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!1 &7748572988552163803
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,47 +383,3 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!1 &8437118309413026106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6228727749051604481}
-  - component: {fileID: 3770391843158915326}
-  m_Layer: 0
-  m_Name: FogGrid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6228727749051604481
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437118309413026106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 559621084}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!156049354 &3770391843158915326
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437118309413026106}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0

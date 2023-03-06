@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SelectableScript : MonoBehaviour
 {
+    public UnityEvent OnSelected;
+    public UnityEvent OnDeselected;
+
     [SerializeField]
     [HideInInspector]
     GameObject UI;
@@ -49,7 +54,7 @@ public class SelectableScript : MonoBehaviour
         SelectionAnimator.transform.position = gameObject.transform.position;
         SelectionAnimator.SetBool("IsSelected", true);
 
-
+        OnSelected.Invoke();
 
 
     }
@@ -57,6 +62,7 @@ public class SelectableScript : MonoBehaviour
     public void Deselect()
     {
         SelectionAnimator.SetBool("IsSelected", false);
+        OnDeselected.Invoke();
         print("Deselected");
     }
 }
