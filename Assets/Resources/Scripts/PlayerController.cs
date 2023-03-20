@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.Drawing;
 using UnityEngine.U2D;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,10 +32,23 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     GameObject LevelManager;
 
+    [SerializeField]
+    [HideInInspector]
+    bool IsPlayerTurn;
+
+    [SerializeField]
+    [HideInInspector]
+    private bool IsActiveTurn;
+
+    public Button FinishTurnButton;
+
     private void Awake()
     {
+        IsActiveTurn = false;
+        IsPlayerTurn = false;
         LevelManager = GameObject.FindWithTag("LevelManager");
-
+        GetComponent<GameActor>().OnTurnStart.AddListener(PlayerTurn);
+        FinishTurnButton.GetComponent<Button>().onClick.AddListener(FinishPlayerTurn);
 
     }
 
@@ -49,10 +63,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DetermineDirection();
+        // DetermineDirection();
 
-        UpdateAnimation();
+        // UpdateAnimation();
+        if(IsActiveTurn)
+        {
 
+        }
+
+    }
+
+    void PlayerTurn()
+    {
+        IsActiveTurn = true;
+        print($"Turno de: {gameObject.GetComponent<PawnData>().Name}");
+        GameObject.FindWithTag("GameManager").GetComponent<ClickSelector>().SetCanClick(true);
+    }
+
+    void FinishPlayerTurn()
+    {
+        if (IsActiveTurn)
+        {
+            print("Finish DoTurn");
+            IsActiveTurn = false;
+            GameObject.FindWithTag("GameManager").GetComponent<ClickSelector>().SetCanClick(false);
+            GetComponent<GameActor>().FinishTurn();
+        }
     }
 
     private void DetermineDirection()

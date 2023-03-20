@@ -63,7 +63,7 @@ public class LevelController : MonoBehaviour
                     }
                     else
                     {
-                        GenerateTile(i, j, TileController.TileType.RedFloor);
+                        GenerateTile(i, j, TileController.TileType.GrassTile);
                     }
                 }
             }

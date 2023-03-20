@@ -9,8 +9,13 @@ public class NPC : MonoBehaviour
     [HideInInspector]
     NPCInfo NPCInfoView;
 
+    [SerializeField]
+    [HideInInspector]
+    private bool IsActiveTurn;
+
     private void Awake()
     {
+        IsActiveTurn = false;
         NPCInfoView = GameObject.FindWithTag("NPCInfo").GetComponent<NPCInfo>();
     }
 
@@ -24,50 +29,47 @@ public class NPC : MonoBehaviour
             NPCSelectableScript.OnSelected.AddListener(OnSelectedNPC);
             NPCSelectableScript.OnDeselected.AddListener(OnDeselectedNPC);
         }
+
+        GetComponent<GameActor>().OnTurnStart.AddListener(NPCTurn);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(IsActiveTurn)
+        {
+            print($"Turno de: {gameObject.GetComponent<PawnData>().Name}");
+            FinishNPCTurn();
+        }
     }
 
     void OnSelectedNPC()
     {
-        // print(LocalizationSettings.StringDatabase.GetLocalizedString(GetComponent<NPCData>().Name));
-
-        //var op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("NPCStringTable", GetComponent<NPCData>().Name);
-        //if (op.IsDone)
-        //{
-        //    var Texts = GameObject.Find("NPCInfo").GetComponentsInChildren<TextMeshProUGUI>();
-
-        //    foreach (var text in Texts)
-        //    {
-        //        if (text.name == "NameValue")
-        //        {
-        //            text.text = op.Result;
-        //        }
-        //    }
-        //}
-        //else
-        //    op.Completed += (op) => 
-        //    {
-        //        var Texts = GameObject.Find("NPCInfo").GetComponentsInChildren<TextMeshProUGUI>();
-
-        //        foreach (var text in Texts)
-        //        {
-        //            if(text.name == "NameValue")
-        //            {
-        //                text.text = op.Result;
-        //            }
-        //        }
-        //    };
-        NPCInfoView.InitializeData(GetComponent<NPCData>());
+        NPCInfoView.InitializeData(GetComponent<PawnData>());
         NPCInfoView.Show();
     }
 
     void OnDeselectedNPC()
     {
         NPCInfoView.Hide();
+    }
+
+    void NPCTurn()
+    {
+        IsActiveTurn = true;
+    }
+
+    void FinishNPCTurn()
+    {
+        IsActiveTurn = false;
+        StartCoroutine(CoUpdate());
+    }
+
+    IEnumerator CoUpdate()
+    {
+        yield return new WaitForSeconds(2);
+        GetComponent<GameActor>().FinishTurn();
+        // Very important, t$$anonymous$$s tells Unity to move onto next frame. Everyt$$anonymous$$ng crashes without t$$anonymous$$s
+        yield return null;
     }
 }

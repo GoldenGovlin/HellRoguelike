@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCData : MonoBehaviour
+public class PawnData : MonoBehaviour
 {
     // Start is called before the first frame update
     public string Name;
@@ -11,6 +11,7 @@ public class NPCData : MonoBehaviour
 
     public int MoveRange;
 
+    public int Initiative;
 
     void Start()
     {

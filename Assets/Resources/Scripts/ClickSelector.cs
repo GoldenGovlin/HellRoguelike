@@ -21,6 +21,11 @@ public class ClickSelector : MonoBehaviour
         
     }
 
+    public void SetCanClick(bool canClick)
+    {
+        CanUseClickSelector = canClick;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -30,7 +30,7 @@ public class MoveManager : MonoBehaviour
     {
         InRangeTile = Resources.Load<GameObject>("Prefabs/Grid/RangeTile");
 
-        MoveRange = GetComponent<NPCData>().MoveRange;
+        MoveRange = GetComponent<PawnData>().MoveRange;
 
         LocalGrid = GetComponentInChildren<Grid>();
     }

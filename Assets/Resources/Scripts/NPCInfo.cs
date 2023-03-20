@@ -10,7 +10,7 @@ public class NPCInfo : MonoBehaviour
 
     [SerializeField]
     [HideInInspector]
-    NPCData data;
+    PawnData data;
 
     [SerializeField]
     [HideInInspector]
@@ -42,7 +42,7 @@ public class NPCInfo : MonoBehaviour
         
     }
 
-    public void InitializeData(NPCData npcdata)
+    public void InitializeData(PawnData npcdata)
     {
         data = npcdata;
 

@@ -10,7 +10,8 @@ public class TileController : MonoBehaviour
     {
         RedFloor,
         TopWall,
-        FogTile
+        FogTile,
+        GrassTile
     }
 
     public TileType tileType;
@@ -22,6 +23,9 @@ public class TileController : MonoBehaviour
         {
             case TileType.RedFloor:
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Floor_01");
+                break;
+            case TileType.GrassTile:
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Grass_Base_01");
                 break;
             case TileType.TopWall:
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Tiles/Floor_02");
